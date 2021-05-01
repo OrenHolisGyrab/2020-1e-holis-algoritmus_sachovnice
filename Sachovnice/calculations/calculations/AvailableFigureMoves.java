@@ -8,7 +8,7 @@ import java.util.List;
 
 public class AvailableFigureMoves {
 
-    private static Direction pawn1Direction;
+    private static Direction pawn1Direction = null;
 
     /**
      * Calculates all accessible field for figure
@@ -104,18 +104,16 @@ public class AvailableFigureMoves {
             case DOWN:
                 if (numberOfMove == 1) {
                     createPosition(+2, 0, availableFields);
-                } else {
-                    createPosition(+1, +0, availableFields);
                 }
+                createPosition(+1, +0, availableFields);
                 createPosition(+1, +1, availableFields);
                 createPosition(+1, -1, availableFields);
                 break;
             case UP:
                 if (numberOfMove == 1) {
                     createPosition(-2, 0, availableFields);
-                } else {
-                    createPosition(-1, +0, availableFields);
                 }
+                createPosition(-1, +0, availableFields);
                 createPosition(-1, +1, availableFields);
                 createPosition(-1, -1, availableFields);
                 break;

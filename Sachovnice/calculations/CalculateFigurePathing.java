@@ -65,6 +65,9 @@ public class CalculateFigurePathing extends AvailableFigureMoves {
 
             if (!this.result.isCrossed)
                 goThrowVisitedFields(this.visitedFields.figure2, 2);
+
+            if (this.figure1.typ.equals("pawn") && !this.figure2.typ.equals("pawn"))
+                resetPawnPlays();
         }
 
         if (this.result.isCrossed)
@@ -217,7 +220,7 @@ public class CalculateFigurePathing extends AvailableFigureMoves {
      * @param figureNumber - figure number
      * @return Figure from field
      */
-    public FigureInField getFigureFromField(Field field, int figureNumber) {
+    private FigureInField getFigureFromField(Field field, int figureNumber) {
         HashMap<String, FigureInField> fieldHash = new HashMap<>();
         fieldHash.put("figure1", field.figure1);
         fieldHash.put("figure2", field.figure2);
@@ -229,7 +232,7 @@ public class CalculateFigurePathing extends AvailableFigureMoves {
      *
      * @param figureNumber - Number of figure
      */
-    public void resetVisitedFieldsForFigure(int figureNumber) {
+    private void resetVisitedFieldsForFigure(int figureNumber) {
         if (figureNumber == 1) {
             this.visitedFields.figure1 = new ArrayList<>();
         } else if (figureNumber == 2) {
@@ -246,5 +249,16 @@ public class CalculateFigurePathing extends AvailableFigureMoves {
      */
     private Field foundPlayField(int x, int y) {
         return this.fields.get(y).get(x);
+    }
+
+    /**
+     * Resets chessboard from old pawn moves
+     */
+    private void resetPawnPlays() {
+        for (int y = 0; y <= 8 - 1; y++) {
+            for (int x = 0; x <= 8 - 1; x++) {
+                this.fields.get(y).get(x).figure1.visited = false;
+            }
+        }
     }
 }

@@ -88,6 +88,9 @@ public class DragNDropEvents {
 
 					ChessBoard.clearChessBoard();
 				} else if (placeToDrop.equals("chessBoard")) {
+					if (figure1Dropped == el || figure2Dropped == el)
+						return;
+
 					if (figureNumber == 1) {
 						InformationPanel.showMessage("");
 						InformationPanel.showHint("");
