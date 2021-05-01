@@ -23,7 +23,7 @@ public class ImageHintPanel {
 
 	public static void showImage(String figureName) {
 		try {
-			FileInputStream inputStream = new FileInputStream("D://javaXD/src/Sachovnice/images/hint-pictures/" + figureName + "-plays.png");
+			FileInputStream inputStream = new FileInputStream("Sachovnice/images/hint-pictures/" + figureName + "-plays.png");
 			ImageHintPanel.image.setImage(new Image(inputStream));
 		} catch (Exception ignored) {}
 	}

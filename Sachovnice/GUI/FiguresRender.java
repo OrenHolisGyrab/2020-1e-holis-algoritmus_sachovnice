@@ -28,7 +28,7 @@ public class FiguresRender {
     }
 
     public static ImageView createFigure(String figureName, int height, int width) throws IOException {
-        FileInputStream inputStream = new FileInputStream("D://javaXD/src/Sachovnice/images/figures/" + figureName + ".png");;
+        FileInputStream inputStream = new FileInputStream("Sachovnice/images/figures/" + figureName + ".png");
         ImageView imageView = new ImageView(new Image(inputStream));
         imageView.setFitHeight(height);
         imageView.setFitWidth(width);
