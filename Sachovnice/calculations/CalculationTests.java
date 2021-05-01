@@ -142,7 +142,7 @@ public class CalculationTests {
             Result result = virtualChess.countFigureMoves();
             if (result == null && !expectedResult.equals("Nikdy se nevyhodí")) {
                 throw new Exception("Chyba");
-            } else if (result != null && Integer.parseInt(expectedResult) != result.pocetTahu) {
+            } else if (result != null && Integer.parseInt(expectedResult) != result.numberOfMoves) {
                 throw new Exception("chyba");
             }
             System.out.println("test " + testNumber  + " passed");

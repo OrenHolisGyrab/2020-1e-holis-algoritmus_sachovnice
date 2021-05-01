@@ -11,7 +11,7 @@ public class ChessBoardFieldRendering {
      * Renders path of figure to cross field
      *
      * @param pane - ChessBoard
-     * @param figureWay - ArrayList with list of field positions where figure enetered
+     * @param figureWay - ArrayList with list of field positions where figure entered
      * @param color - Color which will be way colored
      */
     public static void renderResult(GridPane pane, ArrayList<Field> figureWay, String color) {
@@ -33,7 +33,7 @@ public class ChessBoardFieldRendering {
      * Renders one assigned field
      * @param pane - Chessboard
      * @param field - Assigned field
-     * @param color - Color which will be field highlited
+     * @param color - Color which will be field highlighted
      */
     private static void renderField(GridPane pane, Field field, String color) {
         for (Node node : pane.getChildren()) {

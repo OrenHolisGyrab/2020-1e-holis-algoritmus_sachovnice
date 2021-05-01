@@ -8,7 +8,7 @@ import java.util.List;
 
 public class AvailableFigureMoves {
 
-    private static String pawn1Direction;
+    private static Direction pawn1Direction;
 
     /**
      * Calculates all accessible field for figure
@@ -79,22 +79,29 @@ public class AvailableFigureMoves {
 
     private static void calculatePawnMovement(int height, Positions positions, int numberOfMove, int figureNumber, List<Positions> availableFields) {
         if (height - positions.x > positions.x && figureNumber == 1 && numberOfMove == 1) {
-            pawn1Direction = "down";
+            pawn1Direction = Direction.DOWN;
         } else if (height - positions.x <= positions.x  && figureNumber == 1 && numberOfMove == 1) {
-            pawn1Direction = "up";
+            pawn1Direction = Direction.UP;
         }
 
         if (figureNumber == 1) {
             decideDirection(pawn1Direction, numberOfMove, availableFields);
         } else {
-            decideDirection(pawn1Direction.equals("up") ? "down" : "up", numberOfMove, availableFields);
+            decideDirection(pawn1Direction == Direction.UP ? Direction.DOWN : Direction.UP, numberOfMove, availableFields);
         }
     }
 
-    private static void decideDirection(String smer, int numberOfMove, List<Positions> availableFields) {
-        System.out.println(numberOfMove);
-        switch (smer) {
-            case "down":
+    /**
+     * Enum for deciding which direction will pawn move
+     */
+    enum Direction {
+        UP,
+        DOWN
+    }
+
+    private static void decideDirection(Direction direction, int numberOfMove, List<Positions> availableFields) {
+        switch (direction) {
+            case DOWN:
                 if (numberOfMove == 1) {
                     createPosition(+2, 0, availableFields);
                 } else {
@@ -103,7 +110,7 @@ public class AvailableFigureMoves {
                 createPosition(+1, +1, availableFields);
                 createPosition(+1, -1, availableFields);
                 break;
-            case "up":
+            case UP:
                 if (numberOfMove == 1) {
                     createPosition(-2, 0, availableFields);
                 } else {

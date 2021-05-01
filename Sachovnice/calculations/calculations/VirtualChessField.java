@@ -13,7 +13,7 @@ public class VirtualChessField {
      * @return Virtual chessboard
      */
     public static ArrayList<ArrayList<Field>> generateVirtualChessboard(int width, int height) {
-        ArrayList<ArrayList<Field>> virtualChessboard = new ArrayList<ArrayList<Field>>();
+        ArrayList<ArrayList<Field>> virtualChessboard = new ArrayList<>();
 
         for (int y = 0; y <= width - 1; y++) {
             virtualChessboard.add(new ArrayList<>());

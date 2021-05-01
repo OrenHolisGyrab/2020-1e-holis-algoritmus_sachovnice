@@ -8,7 +8,6 @@ import Sachovnice.calculations.types.VisitedFields;
 import java.util.ArrayList;
 
 public class SettingFigure {
-
     /**
      * Sets figure on virtual chessBoard
      *
@@ -17,16 +16,16 @@ public class SettingFigure {
      * @param visitedFields - Fields which was visited by figure
      */
     public SettingFigure(InsertedFigure figure, ArrayList<ArrayList<Field>> chessboardFields, VisitedFields visitedFields) {
-        Field aktualniPoleFigury = chessboardFields.get(figure.position.y).get(figure.position.x);
+        Field fieldWhereIsFigure = chessboardFields.get(figure.position.y).get(figure.position.x);
 
         setFigureEntry(
-            figure.figureNumber == 1 ? aktualniPoleFigury.figure1 : aktualniPoleFigury.figure2
+            figure.figureNumber == 1 ? fieldWhereIsFigure.figure1 : fieldWhereIsFigure.figure2
         );
 
         if (figure.figureNumber == 1) {
-            visitedFields.figure1.add(aktualniPoleFigury);
+            visitedFields.figure1.add(fieldWhereIsFigure);
         } else if (figure.figureNumber == 2) {
-            visitedFields.figure2.add(aktualniPoleFigury);
+            visitedFields.figure2.add(fieldWhereIsFigure);
         }
     }
 
@@ -37,6 +36,6 @@ public class SettingFigure {
      */
     private static void setFigureEntry(FigureInField figure) {
         figure.visited = true;
-        figure.aktualniPoziceFigury = true;
+        figure.actualFigurePosition = true;
     }
 }

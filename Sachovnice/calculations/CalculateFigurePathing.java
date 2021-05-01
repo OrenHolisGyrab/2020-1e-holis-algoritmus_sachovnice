@@ -14,8 +14,8 @@ import java.util.HashMap;
 import java.util.List;
 
 public class CalculateFigurePathing extends AvailableFigureMoves {
-    protected InsertedFigure figura1;
-    protected InsertedFigure figura2;
+    protected InsertedFigure figure1;
+    protected InsertedFigure figure2;
 
     private final Sizing size;
 
@@ -27,21 +27,21 @@ public class CalculateFigurePathing extends AvailableFigureMoves {
 
     public CalculateFigurePathing(int height, int width, InsertedFigure figure1, InsertedFigure figure2) {
         if(width <= 0)
-            throw new Error("Špatná šířka");
+            throw new Error("Wrong width");
 
         if(height <= 0)
-            throw new Error("Špatná šířka");
+            throw new Error("Wrong height");
 
         this.size = new Sizing(width, height);
 
         this.fields = VirtualChessField.generateVirtualChessboard(this.size.width, this.size.height);
 
-        this.visitedFields = new VisitedFields(new ArrayList<Field>(), new ArrayList<Field>());
+        this.visitedFields = new VisitedFields(new ArrayList<>(), new ArrayList<>());
 
         this.result = new Result(0, false, null, new ArrayList<>(), new ArrayList<>());
 
-        this.figura1 = figure1;
-        this.figura2 = figure2;
+        this.figure1 = figure1;
+        this.figure2 = figure2;
         new SettingFigure(figure1, this.fields, this.visitedFields);
         new SettingFigure(figure2, this.fields, this.visitedFields);
     }
@@ -53,14 +53,14 @@ public class CalculateFigurePathing extends AvailableFigureMoves {
      * @return Result with count of moves and way of first and second figure to cross field
      */
     public Result countFigureMoves() {
-        if (this.figura1 == null)
-            throw new Error("Není zadaná figura 1");
+        if (this.figure1 == null)
+            throw new Error("Figure one is not assigned.");
 
-        if (this.figura2 == null)
-            throw new Error("Není zadaná figura 2");
+        if (this.figure2 == null)
+            throw new Error("Figure two is not assigned.");
 
         while (this.visitedFields.figure1.size() != 0 && this.visitedFields.figure2.size() != 0 && !this.result.isCrossed) {
-            this.result.pocetTahu++;
+            this.result.numberOfMoves++;
             goThrowVisitedFields(this.visitedFields.figure1, 1);
 
             if (!this.result.isCrossed)
@@ -101,15 +101,15 @@ public class CalculateFigurePathing extends AvailableFigureMoves {
      *                                      - figureNumber - Number of figure {1 | 2}
      */
     private void calculateAvailableFieldsForFigure(Figure data) {
-        HashMap<String, InsertedFigure> aktualniFigura = new HashMap<>();
-        aktualniFigura.put("figure1", this.figura1);
-        aktualniFigura.put("figure2", this.figura2);
+        HashMap<String, InsertedFigure> actuallyPlayedFigure = new HashMap<>();
+        actuallyPlayedFigure.put("figure1", this.figure1);
+        actuallyPlayedFigure.put("figure2", this.figure2);
         List<Positions> availableFields = calculateFigureAvailableFields(
-            aktualniFigura.get("figure" + data.figureNumber).typ,
+            actuallyPlayedFigure.get("figure" + data.figureNumber).typ,
             new Positions(data.x, data.y),
             this.size,
             data.figureNumber,
-            this.result.pocetTahu
+            this.result.numberOfMoves
         );
 
         for (int i = 0; availableFields.size() > i && !this.result.isCrossed; i++) {
@@ -125,10 +125,10 @@ public class CalculateFigurePathing extends AvailableFigureMoves {
 
                 FigureInField figure = evaluatedPlayFieldFigureHash.get("figure" + data.figureNumber);
 
-                if (figure.predchoziPole.equals("x1") && !figure.aktualniPoziceFigury) {
+                if (figure.fieldBefore.equals("x1") && !figure.actualFigurePosition) {
                     markFieldFigureEntered(
                         new FigureWithField(data.x, data.y, data.figureNumber, evaluatedPlayField),
-                        !(aktualniFigura.get("figure" + data.figureNumber).typ.equals("pawn") && availableFields.get(i).y != 0)
+                        !(actuallyPlayedFigure.get("figure" + data.figureNumber).typ.equals("pawn") && availableFields.get(i).y != 0)
                     );
                 }
             }
@@ -141,7 +141,7 @@ public class CalculateFigurePathing extends AvailableFigureMoves {
      *
      * @param field - Information about field on which is decided figures cross
      *                  - {Field} field - Field where is cross evaluated
-     *                  - predchoziPole - Field from where figure came
+     *                  - fieldBefore - Field from where figure came
      *                  - figureNumber - Figure number {1 | 2}
      * @param mark - If field will be marked (Only used for pawns)
      */
@@ -153,17 +153,17 @@ public class CalculateFigurePathing extends AvailableFigureMoves {
             calculatedFieldHash.put("poleFigure1", field.field.figure1);
             calculatedFieldHash.put("poleFigure2", field.field.figure2);
 
-            HashMap<Object, ArrayList<Field>> navstivena = new HashMap<>();
-            navstivena.put("visitedFields1", this.visitedFields.figure1);
-            navstivena.put("visitedFields2", this.visitedFields.figure2);
+            HashMap<Object, ArrayList<Field>> figureWhichCrossed = new HashMap<>();
+            figureWhichCrossed.put("visitedFields1", this.visitedFields.figure1);
+            figureWhichCrossed.put("visitedFields2", this.visitedFields.figure2);
 
             FigureInField fieldFigure = calculatedFieldHash.get("poleFigure" + field.figureNumber);
             fieldFigure.visited = true;
-            navstivena.get("visitedFields" + field.figureNumber).add(field.field);
+            figureWhichCrossed.get("visitedFields" + field.figureNumber).add(field.field);
 
-            if (!fieldFigure.aktualniPoziceFigury && fieldFigure.predchoziPole.equals("x1")) {
-                fieldFigure.predchoziPole = field.x + "-" + field.y;
-                fieldFigure.cisloTahu = this.result.pocetTahu;
+            if (!fieldFigure.actualFigurePosition && fieldFigure.fieldBefore.equals("x1")) {
+                fieldFigure.fieldBefore = field.x + "-" + field.y;
+                fieldFigure.moveNumber = this.result.numberOfMoves;
             }
         }
     }
@@ -173,24 +173,24 @@ public class CalculateFigurePathing extends AvailableFigureMoves {
      *
      * @param field - Information about field on which is decided figures cross
      *                  - {Field} field - Field where is cross evaluated
-     *                  - predchoziPole - Field from where figure came
+     *                  - fieldBefore - Field from where figure came
      *                  - figureNumber - Figure number {1 | 2}
      */
     private void evaluateFigureWaysCross(FigureWithField field) {
-        HashMap<Object, FigureInField> aktualniPolickoHash = new HashMap<>();
-        aktualniPolickoHash.put("figure1", field.field.figure1);
-        aktualniPolickoHash.put("figure2", field.field.figure2);
+        HashMap<Object, FigureInField> evaluatedField = new HashMap<>();
+        evaluatedField.put("figure1", field.field.figure1);
+        evaluatedField.put("figure2", field.field.figure2);
 
-        if (aktualniPolickoHash.get("figure" + (field.figureNumber == 1 ? 2 : 1)).visited &&
-            !aktualniPolickoHash.get("figure" + field.figureNumber).aktualniPoziceFigury
+        if (evaluatedField.get("figure" + (field.figureNumber == 1 ? 2 : 1)).visited &&
+            !evaluatedField.get("figure" + field.figureNumber).actualFigurePosition
         ) {
             if (field.figureNumber == 1) {
                 this.visitedFields.figure1 = new ArrayList<>();
             } else if (field.figureNumber == 2) {
                 this.visitedFields.figure2 = new ArrayList<>();
             }
-            FigureInField aktualniPolickoNastaveniFigura = aktualniPolickoHash.get("figure" + field.figureNumber);
-            aktualniPolickoNastaveniFigura.predchoziPole = field.x + "-" + field.y;
+            FigureInField evaluatedFieldFigure = evaluatedField.get("figure" + field.figureNumber);
+            evaluatedFieldFigure.fieldBefore = field.x + "-" + field.y;
             this.result.crossField = field.field;
             calculateFigurePath();
             this.result.isCrossed = true;
@@ -202,8 +202,8 @@ public class CalculateFigurePathing extends AvailableFigureMoves {
      */
     private void calculateFigurePath() {
         HashMap<String, String> crossFieldBeforeField = new HashMap<>();
-        crossFieldBeforeField.put("figure1", this.result.crossField.figure1.predchoziPole);
-        crossFieldBeforeField.put("figure2", this.result.crossField.figure2.predchoziPole);
+        crossFieldBeforeField.put("figure1", this.result.crossField.figure1.fieldBefore);
+        crossFieldBeforeField.put("figure2", this.result.crossField.figure2.fieldBefore);
 
         for (int i = 1; i <= 2; i++) {
             String beforeFieldId = crossFieldBeforeField.get("figure" + i);
@@ -213,12 +213,12 @@ public class CalculateFigurePathing extends AvailableFigureMoves {
                 int y = Integer.parseInt(fieldBeforeId[1]);
 
                 Field pole = this.fields.get(y).get(x);
-                HashMap<String, FigureInField> aktualniPolickoHash = new HashMap<>();
-                aktualniPolickoHash.put("figure1", pole.figure1);
-                aktualniPolickoHash.put("figure2", pole.figure2);
+                HashMap<String, FigureInField> actualField = new HashMap<>();
+                actualField.put("figure1", pole.figure1);
+                actualField.put("figure2", pole.figure2);
 
-                if (!aktualniPolickoHash.get("figure" + i).aktualniPoziceFigury) {
-                    beforeFieldId = aktualniPolickoHash.get("figure" + i).predchoziPole;
+                if (!actualField.get("figure" + i).actualFigurePosition) {
+                    beforeFieldId = actualField.get("figure" + i).fieldBefore;
                     if (i == 1) {
                         this.result.figure1Way.add(pole);
                     } else {

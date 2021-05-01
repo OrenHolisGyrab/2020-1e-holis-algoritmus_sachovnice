@@ -20,7 +20,6 @@ public class DragNDropEvents {
 	 */
 	public static void setDragNDrop(Node el, String imageSource) {
 		el.setOnDragDetected((MouseEvent event) -> {
-			System.out.println(el != figure2Dropped);
 			if (figureNumber == 3 && (el != figure1Dragged && el != figure2Dragged) && (el != figure1Dropped && el != figure2Dropped)) {
 				InformationPanel.showMessage("Nemůžete položit více než 2 figury");
 				return;

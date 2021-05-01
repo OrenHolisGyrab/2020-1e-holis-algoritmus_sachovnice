@@ -44,7 +44,7 @@ public class Sachovnice extends Application {
 
         hbox.getChildren().addAll(pane1, pane2, pane3);
         return hbox;
-    };
+    }
 
     public static void main(String[] args) {
         launch();
