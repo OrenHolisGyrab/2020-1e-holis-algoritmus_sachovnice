@@ -9,6 +9,15 @@ import java.util.List;
 public class AvailableFigureMoves {
 
     private static Direction pawn1Direction = null;
+    private static Direction pawn2Direction = null;
+
+    /**
+     * Resets pawns
+     */
+    public static void resetPawns() {
+        pawn1Direction = null;
+        pawn2Direction = null;
+    }
 
     /**
      * Calculates all accessible field for figure
@@ -84,10 +93,20 @@ public class AvailableFigureMoves {
             pawn1Direction = Direction.UP;
         }
 
+        if (pawn1Direction != null && numberOfMove == 1) {
+            pawn2Direction = pawn1Direction == Direction.UP ? Direction.DOWN : Direction.UP;
+        } else if (figureNumber == 2) {
+            if (height - positions.x > positions.x && numberOfMove == 1) {
+                pawn2Direction = Direction.DOWN;
+            } else if (height - positions.x <= positions.x && numberOfMove == 1) {
+                pawn2Direction = Direction.UP;
+            }
+        }
+
         if (figureNumber == 1) {
             decideDirection(pawn1Direction, numberOfMove, availableFields);
         } else {
-            decideDirection(pawn1Direction == Direction.UP ? Direction.DOWN : Direction.UP, numberOfMove, availableFields);
+            decideDirection(pawn2Direction, numberOfMove, availableFields);
         }
     }
 

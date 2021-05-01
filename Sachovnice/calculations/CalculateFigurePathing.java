@@ -59,6 +59,9 @@ public class CalculateFigurePathing extends AvailableFigureMoves {
         if (this.figure2 == null)
             throw new Error("Figure two is not assigned.");
 
+        if (this.figure2.typ.equals("pawn") || this.figure1.typ.equals("pawn"))
+            AvailableFigureMoves.resetPawns();
+
         while (this.visitedFields.figure1.size() != 0 && this.visitedFields.figure2.size() != 0 && !this.result.isCrossed) {
             this.result.numberOfMoves++;
             goThrowVisitedFields(this.visitedFields.figure1, 1);
@@ -67,7 +70,9 @@ public class CalculateFigurePathing extends AvailableFigureMoves {
                 goThrowVisitedFields(this.visitedFields.figure2, 2);
 
             if (this.figure1.typ.equals("pawn") && !this.figure2.typ.equals("pawn"))
-                resetPawnPlays();
+                resetPawnPlays(1);
+            if (!this.figure1.typ.equals("pawn") && this.figure2.typ.equals("pawn"))
+                resetPawnPlays(2);
         }
 
         if (this.result.isCrossed)
@@ -254,10 +259,14 @@ public class CalculateFigurePathing extends AvailableFigureMoves {
     /**
      * Resets chessboard from old pawn moves
      */
-    private void resetPawnPlays() {
+    private void resetPawnPlays(int figureNumber) {
         for (int y = 0; y <= 8 - 1; y++) {
             for (int x = 0; x <= 8 - 1; x++) {
-                this.fields.get(y).get(x).figure1.visited = false;
+                if (figureNumber == 1) {
+                    this.fields.get(y).get(x).figure1.visited = false;
+                } else if (figureNumber == 2) {
+                    this.fields.get(y).get(x).figure2.visited = false;
+                }
             }
         }
     }
