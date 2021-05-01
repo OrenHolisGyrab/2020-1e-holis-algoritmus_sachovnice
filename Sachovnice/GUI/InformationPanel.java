@@ -128,7 +128,7 @@ public class InformationPanel {
 				figure = "věž";
 				break;
 			default:
-				figure = "Chyba Omegalul";
+				figure = "Chyba";
 		}
 		return figure;
 	}

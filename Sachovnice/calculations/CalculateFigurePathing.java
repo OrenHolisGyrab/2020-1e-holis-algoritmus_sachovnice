@@ -80,11 +80,7 @@ public class CalculateFigurePathing extends AvailableFigureMoves {
      * @param numberOfFigure - Number of figure
      */
     private void goThrowVisitedFields(ArrayList<Field> visitedFields, int numberOfFigure) {
-        if (numberOfFigure == 1) {
-            this.visitedFields.figure1 = new ArrayList<>();
-        } else if (numberOfFigure == 2) {
-            this.visitedFields.figure2 = new ArrayList<>();
-        }
+        resetVisitedFieldsForFigure(numberOfFigure);
 
         for (int i = 0; i < visitedFields.size() && !this.result.isCrossed; i++) {
             calculateAvailableFieldsForFigure(
@@ -104,6 +100,7 @@ public class CalculateFigurePathing extends AvailableFigureMoves {
         HashMap<String, InsertedFigure> actuallyPlayedFigure = new HashMap<>();
         actuallyPlayedFigure.put("figure1", this.figure1);
         actuallyPlayedFigure.put("figure2", this.figure2);
+
         List<Positions> availableFields = calculateFigureAvailableFields(
             actuallyPlayedFigure.get("figure" + data.figureNumber).typ,
             new Positions(data.x, data.y),
@@ -119,11 +116,7 @@ public class CalculateFigurePathing extends AvailableFigureMoves {
             if (x >= 0 && x < this.size.width && y >= 0 && y < this.size.height) {
                 Field evaluatedPlayField = this.foundPlayField(x, y);
 
-                HashMap<Object, FigureInField> evaluatedPlayFieldFigureHash = new HashMap<>();
-                evaluatedPlayFieldFigureHash.put("figure1", evaluatedPlayField.figure1);
-                evaluatedPlayFieldFigureHash.put("figure2", evaluatedPlayField.figure2);
-
-                FigureInField figure = evaluatedPlayFieldFigureHash.get("figure" + data.figureNumber);
+                FigureInField figure = getFigureFromField(evaluatedPlayField, data.figureNumber);
 
                 if (figure.fieldBefore.equals("x1") && !figure.actualFigurePosition) {
                     markFieldFigureEntered(
@@ -149,15 +142,11 @@ public class CalculateFigurePathing extends AvailableFigureMoves {
         evaluateFigureWaysCross(field);
 
         if (!this.result.isCrossed && mark) {
-            HashMap<Object, FigureInField> calculatedFieldHash = new HashMap<>();
-            calculatedFieldHash.put("poleFigure1", field.field.figure1);
-            calculatedFieldHash.put("poleFigure2", field.field.figure2);
-
             HashMap<Object, ArrayList<Field>> figureWhichCrossed = new HashMap<>();
             figureWhichCrossed.put("visitedFields1", this.visitedFields.figure1);
             figureWhichCrossed.put("visitedFields2", this.visitedFields.figure2);
 
-            FigureInField fieldFigure = calculatedFieldHash.get("poleFigure" + field.figureNumber);
+            FigureInField fieldFigure = getFigureFromField(field.field, field.figureNumber);
             fieldFigure.visited = true;
             figureWhichCrossed.get("visitedFields" + field.figureNumber).add(field.field);
 
@@ -177,19 +166,11 @@ public class CalculateFigurePathing extends AvailableFigureMoves {
      *                  - figureNumber - Figure number {1 | 2}
      */
     private void evaluateFigureWaysCross(FigureWithField field) {
-        HashMap<Object, FigureInField> evaluatedField = new HashMap<>();
-        evaluatedField.put("figure1", field.field.figure1);
-        evaluatedField.put("figure2", field.field.figure2);
-
-        if (evaluatedField.get("figure" + (field.figureNumber == 1 ? 2 : 1)).visited &&
-            !evaluatedField.get("figure" + field.figureNumber).actualFigurePosition
+        if (getFigureFromField(field.field, (field.figureNumber == 1 ? 2 : 1)).visited &&
+            !getFigureFromField(field.field, field.figureNumber).actualFigurePosition
         ) {
-            if (field.figureNumber == 1) {
-                this.visitedFields.figure1 = new ArrayList<>();
-            } else if (field.figureNumber == 2) {
-                this.visitedFields.figure2 = new ArrayList<>();
-            }
-            FigureInField evaluatedFieldFigure = evaluatedField.get("figure" + field.figureNumber);
+            resetVisitedFieldsForFigure(field.figureNumber);
+            FigureInField evaluatedFieldFigure = getFigureFromField(field.field, field.figureNumber);
             evaluatedFieldFigure.fieldBefore = field.x + "-" + field.y;
             this.result.crossField = field.field;
             calculateFigurePath();
@@ -212,17 +193,15 @@ public class CalculateFigurePathing extends AvailableFigureMoves {
                 int x = Integer.parseInt(fieldBeforeId[0]);
                 int y = Integer.parseInt(fieldBeforeId[1]);
 
-                Field pole = this.fields.get(y).get(x);
-                HashMap<String, FigureInField> actualField = new HashMap<>();
-                actualField.put("figure1", pole.figure1);
-                actualField.put("figure2", pole.figure2);
+                Field field = this.fields.get(y).get(x);
+                FigureInField actualField = getFigureFromField(field, i);
 
-                if (!actualField.get("figure" + i).actualFigurePosition) {
-                    beforeFieldId = actualField.get("figure" + i).fieldBefore;
+                if (!actualField.actualFigurePosition) {
+                    beforeFieldId = actualField.fieldBefore;
                     if (i == 1) {
-                        this.result.figure1Way.add(pole);
+                        this.result.figure1Way.add(field);
                     } else {
-                        this.result.figure2Way.add(pole);
+                        this.result.figure2Way.add(field);
                     }
                 } else {
                     beforeFieldId = null;
@@ -232,7 +211,35 @@ public class CalculateFigurePathing extends AvailableFigureMoves {
     }
 
     /**
+     * Gets figure from field in virtual chessBoard
+     *
+     * @param field - field from which will be figure found
+     * @param figureNumber - figure number
+     * @return Figure from field
+     */
+    public FigureInField getFigureFromField(Field field, int figureNumber) {
+        HashMap<String, FigureInField> fieldHash = new HashMap<>();
+        fieldHash.put("figure1", field.figure1);
+        fieldHash.put("figure2", field.figure2);
+        return fieldHash.get("figure" + figureNumber);
+    }
+
+    /**
+     * Resets visited fields for assigned figure
+     *
+     * @param figureNumber - Number of figure
+     */
+    public void resetVisitedFieldsForFigure(int figureNumber) {
+        if (figureNumber == 1) {
+            this.visitedFields.figure1 = new ArrayList<>();
+        } else if (figureNumber == 2) {
+            this.visitedFields.figure2 = new ArrayList<>();
+        }
+    }
+
+    /**
      * Fiends field in virtual chessBoard
+     *
      * @param x - Fields x
      * @param y - Fields y
      * @return Field from virtual chessBoard
