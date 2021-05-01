@@ -12,6 +12,12 @@ public class DragNDropEvents {
 	public static Node figure1Dropped;
 	public static Node figure2Dropped;
 
+	/**
+	 * Handle figures dragging
+	 *
+	 * @param el - Dragged el
+	 * @param imageSource - Source of figure image
+	 */
 	public static void setDragNDrop(Node el, String imageSource) {
 		el.setOnDragDetected((MouseEvent event) -> {
 			System.out.println(el != figure2Dropped);
@@ -49,7 +55,14 @@ public class DragNDropEvents {
 		el.setOnMouseDragged((MouseEvent event) -> event.setDragDetect(true));
 	}
 
-	public static void setDropZone(Node el, String type, String figureName) {
+	/**
+	 * Handle figure dropping
+	 *
+	 * @param el - Dragged el which will be dropped
+	 * @param placeToDrop - Where will be figure dropped
+	 * @param figureName - Name of dragged figure
+	 */
+	public static void setDropZone(Node el, String placeToDrop, String figureName) {
 		el.setOnDragOver(event -> {
 			if (event.getGestureSource() != el && event.getDragboard().hasString()) {
 				event.acceptTransferModes(TransferMode.COPY_OR_MOVE);
@@ -65,7 +78,7 @@ public class DragNDropEvents {
 		el.setOnDragDropped((DragEvent event) -> {
 			Dragboard db = event.getDragboard();
 			if (db.hasString()) {
-				if (type.equals("figureBoard")) {
+				if (placeToDrop.equals("figureBoard")) {
 					if (figureName.equals(figure1Id)) {
 						ChessBoard.removeFigureFromButton(figure1Dropped, 1);
 						reset1();
@@ -75,7 +88,7 @@ public class DragNDropEvents {
 					}
 
 					ChessBoard.clearChessBoard();
-				} else if (type.equals("chessBoard")) {
+				} else if (placeToDrop.equals("chessBoard")) {
 					if (figureNumber == 1) {
 						InformationPanel.showMessage("");
 						InformationPanel.showHint("");
@@ -104,6 +117,9 @@ public class DragNDropEvents {
 		});
 	}
 
+	/**
+	 * Resets values for figure 1
+	 */
 	public static void reset1() {
 		if (figure1Dragged != null)
 			figure1Dragged.setDisable(false);
@@ -112,6 +128,9 @@ public class DragNDropEvents {
 		figureNumber = 1;
 	}
 
+	/**
+	 * Resets values for figure 2
+	 */
 	public static void reset2() {
 		if (figure2Dragged != null)
 			figure2Dragged.setDisable(false);
@@ -120,6 +139,9 @@ public class DragNDropEvents {
 		figureNumber = 1;
 	}
 
+	/**
+	 * Resets both figures
+	 */
 	public static void reset() {
 		reset1();
 		reset2();

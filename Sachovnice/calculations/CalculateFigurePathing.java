@@ -74,10 +74,10 @@ public class CalculateFigurePathing extends AvailableFigureMoves {
     }
 
     /**
-     * Go throw all visited fields in last (//TODO tah) for figure one or two
+     * Go throw all visited fields
      *
-     * @param visitedFields - List of visited fields in last (//TODO move) of figure one or two
-     * @param numberOfFigure - Number of figure which is on (//TODO tah)
+     * @param visitedFields - List of visited fields in last
+     * @param numberOfFigure - Number of figure
      */
     private void goThrowVisitedFields(ArrayList<Field> visitedFields, int numberOfFigure) {
         if (numberOfFigure == 1) {
@@ -94,14 +94,11 @@ public class CalculateFigurePathing extends AvailableFigureMoves {
     }
 
     /**
-     * vypoctiMoznaPoleVstupuFigury počítá možnosti kam může jít figura z předaného pole
-     * @param data - pozice {string} - x, y - přesné souřadnice políčka
-     *                      - figureNumber {number} - číslo figury buď 1 nebo 2
-     */
-    /**
      * Calculates all available fields from field where figure stand at this time.
      *
-     * @param data
+     * @param data Information about figure - position - x - Figures x
+     *                                                 - y - Figures y
+     *                                      - figureNumber - Number of figure {1 | 2}
      */
     private void calculateAvailableFieldsForFigure(Figure data) {
         HashMap<String, InsertedFigure> aktualniFigura = new HashMap<>();
@@ -139,16 +136,14 @@ public class CalculateFigurePathing extends AvailableFigureMoves {
     }
 
     /**
-     * oznacPoleVstupuFigury označí pole kam vstoupila figura
-     * @param field - aktualniPolicko {array} - aktuální políčko
-     *                      - vychoziPozice {string} - vychoziPoleX, vychoziPoleX - přesné souřadnice předchozího/vstupního pole
-     *                      - figureNumber {number} - číslo figury buď 1 nebo 2
-     */
-    /**
      * Marks field where figure entered.
      * At field is marked which figure it was and from which field she came.
      *
-     * @param field
+     * @param field - Information about field on which is decided figures cross
+     *                  - {Field} field - Field where is cross evaluated
+     *                  - predchoziPole - Field from where figure came
+     *                  - figureNumber - Figure number {1 | 2}
+     * @param mark - If field will be marked (Only used for pawns)
      */
     private void markFieldFigureEntered(FigureWithField field, boolean mark) {
         evaluateFigureWaysCross(field);
@@ -174,15 +169,12 @@ public class CalculateFigurePathing extends AvailableFigureMoves {
     }
 
     /**
-     * evaluateFigureWaysCross vyhodnocuje jestli se figurky potkaly
-     * @param field - vychoziPozice {string} - vychoziPoleX, vychoziPoleX - přesné souřadnice předchozího/vstupního pole
-     *                      - figureNumber {number} - číslo figury buď 1 nebo 2
-     *                      - pole {object} - celé políčko, na kterém se vyhodnocují operace
-     */
-    /**
+     * Evaluates if figures crossed each other on the field
      *
-     *
-     * @param field
+     * @param field - Information about field on which is decided figures cross
+     *                  - {Field} field - Field where is cross evaluated
+     *                  - predchoziPole - Field from where figure came
+     *                  - figureNumber - Figure number {1 | 2}
      */
     private void evaluateFigureWaysCross(FigureWithField field) {
         HashMap<Object, FigureInField> aktualniPolickoHash = new HashMap<>();
@@ -240,10 +232,10 @@ public class CalculateFigurePathing extends AvailableFigureMoves {
     }
 
     /**
-     * hledá dané pole
+     * Fiends field in virtual chessBoard
      * @param x - Fields x
      * @param y - Fields y
-     * @return Field from virtual chess board
+     * @return Field from virtual chessBoard
      */
     private Field foundPlayField(int x, int y) {
         return this.fields.get(y).get(x);

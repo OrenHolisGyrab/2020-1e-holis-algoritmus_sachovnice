@@ -7,16 +7,23 @@ import javafx.scene.layout.GridPane;
 import java.util.ArrayList;
 
 public class ChessBoardFieldRendering {
-
+    /**
+     * Renders path of figure to cross field
+     *
+     * @param pane - ChessBoard
+     * @param figureWay - ArrayList with list of field positions where figure enetered
+     * @param color - Color which will be way colored
+     */
     public static void renderResult(GridPane pane, ArrayList<Field> figureWay, String color) {
         for (Field field : figureWay)
             renderField(pane, field, color);
     }
 
     /**
+     * Renders field where figures crossed each other
      *
-     * @param pane
-     * @param field
+     * @param pane - Chessboard
+     * @param field - Field of cross
      */
     public static void renderCrossField(GridPane pane, Field field) {
         renderField(pane, field, "orange");

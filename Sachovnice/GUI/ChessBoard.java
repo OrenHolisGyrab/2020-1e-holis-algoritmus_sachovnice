@@ -13,6 +13,9 @@ import javafx.scene.layout.GridPane;
 import java.io.IOException;
 
 public class ChessBoard {
+    /**
+     * One field in chessboard
+     */
     public static class ChessField extends Button {
         public int y;
         public int x;
@@ -25,6 +28,11 @@ public class ChessBoard {
     private static Node placedFigure1;
     private static Node placedFigure2;
 
+    /**
+     * Creates and renders chessboard
+     *
+     * @return Chessboard
+     */
     public static GridPane createChessBoard() {
         for (int y = 0; y < 8; y++) {
             for (int x = 0; x < 8; x++) {
@@ -43,7 +51,13 @@ public class ChessBoard {
         return chessboardPane;
     }
 
-    public static void removeFigureFromButton(Node el, int figureNumberRemoved) {
+    /**
+     * Removes figure from button
+     *
+     * @param button - Button on which will be figure removed
+     * @param figureNumberRemoved - Number of which figure will be removed
+     */
+    public static void removeFigureFromButton(Node button, int figureNumberRemoved) {
         if (figureNumberRemoved == 1) {
             figure1 = null;
             figureNumber = 2;
@@ -51,9 +65,13 @@ public class ChessBoard {
             figure2 = null;
             figureNumber = 2;
         }
-        ((Button) el).setGraphic(null);
+        ((Button) button).setGraphic(null);
     }
 
+    /**
+     * Resets chessboard
+     * @param figuresCleared - If figures have to be cleared
+     */
     public static void reset(boolean figuresCleared) {
         ChessBoard.clearChessBoard();
         if (!figuresCleared) {
@@ -93,6 +111,14 @@ public class ChessBoard {
         } catch (IOException ignored) {}
     }
 
+    /**
+     * Create figure on chessBoard
+     *
+     * @param button - Button where will be figure placed
+     * @param source - Source of figure image
+     * @param numberFigure - Number of figure
+     * @return Created figure for calculation
+     */
     public static InsertedFigure createFigure(Button button, String source, int numberFigure) {
         ChessField chessField = (ChessField) button;
         String typ = "";
@@ -111,7 +137,7 @@ public class ChessBoard {
     }
 
     /**
-     * Clears everything on chessboard
+     * Clears colored fields on chessboard
      */
     public static void clearChessBoard() {
         for (Node node : chessboardPane.getChildren()) {
@@ -121,6 +147,9 @@ public class ChessBoard {
         }
     }
 
+    /**
+     * Starts calculation and shows her results
+     */
     public static void startCalculation() {
         CalculateFigurePathing virtualChess = new CalculateFigurePathing(8, 8, figure1, figure2);
         Result result = virtualChess.countFigureMoves();

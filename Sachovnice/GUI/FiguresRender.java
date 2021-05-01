@@ -11,6 +11,11 @@ import java.io.IOException;
 public class FiguresRender {
     private static final GridPane pane = new GridPane();
 
+    /**
+     * Creates figure bar
+     *
+     * @return Figure bar
+     */
     public static GridPane createFiguresBar() {
         for (int y = 0; y < 2; y++) {
             for (int x = 0; x < Sachovnice.namesOfFigures.length; x++) {
@@ -27,6 +32,14 @@ public class FiguresRender {
         return pane;
     }
 
+    /**
+     * Creates figure image
+     *
+     * @param figureName - Name of figure
+     * @param height - Height with which will be figure rendered
+     * @param width - Width with which will be figure rendered
+     * @return Figure el
+     */
     public static ImageView createFigure(String figureName, int height, int width) throws IOException {
         FileInputStream inputStream = new FileInputStream("Sachovnice/images/figures/" + figureName + ".png");
         ImageView imageView = new ImageView(new Image(inputStream));

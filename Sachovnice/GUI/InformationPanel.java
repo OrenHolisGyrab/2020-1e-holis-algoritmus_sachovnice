@@ -6,10 +6,14 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.text.Text;
 
 public class InformationPanel {
-
 	public static Text msgWindow = new Text();
 	public static Text hintWindow = new Text();
 
+	/**
+	 * Creates panel for showing hint for user and resetting application
+	 *
+	 * @return Created panel
+	 */
 	public static GridPane createPanel() {
 		GridPane pane = new GridPane();
 
@@ -26,6 +30,9 @@ public class InformationPanel {
 		return pane;
 	}
 
+	/**
+	 * Clears chessBoard and figures
+	 */
 	private static void clearBoard(ActionEvent actionEvent) {
 		DragNDropEvents.reset();
 		ChessBoard.reset(false);
@@ -34,14 +41,27 @@ public class InformationPanel {
 		msgWindow.setText("");
 	}
 
+	/**
+	 * Shows message for user
+	 * @param text - Displayed text
+	 */
 	public static void showMessage(String text) {
 		msgWindow.setText(text);
 	}
 
+	/**
+	 * Shows hint for user
+	 * @param hint - Displayed hint
+	 */
 	public static void showHint(String hint) {
 		hintWindow.setText(hint);
 	}
 
+	/**
+	 * Decides which hint will be displayed
+	 *
+	 * @param figureName - Name of figure for which will be displayed hint
+	 */
 	public static void hint(String figureName) {
 		ImageHintPanel.showImage(figureName);
 		switch(figureName) {
@@ -80,9 +100,15 @@ public class InformationPanel {
 		}
 	}
 
-	public static String translations(String text) {
+	/**
+	 * Translates names of figures from cz to en
+	 *
+	 * @param figureName - Name of translated figure
+	 * @return translated name of figure
+	 */
+	public static String translations(String figureName) {
 		String figure;
-		switch(text) {
+		switch(figureName) {
 			case "horse":
 				figure = "kůň";
 				break;

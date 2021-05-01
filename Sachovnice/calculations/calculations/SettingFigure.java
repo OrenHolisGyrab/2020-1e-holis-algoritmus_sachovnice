@@ -10,10 +10,11 @@ import java.util.ArrayList;
 public class SettingFigure {
 
     /**
+     * Sets figure on virtual chessBoard
      *
-     * @param figure
-     * @param chessboardFields
-     * @param visitedFields
+     * @param figure - Data about figure which will be placed
+     * @param chessboardFields - Virtual chessboard
+     * @param visitedFields - Fields which was visited by figure
      */
     public SettingFigure(InsertedFigure figure, ArrayList<ArrayList<Field>> chessboardFields, VisitedFields visitedFields) {
         Field aktualniPoleFigury = chessboardFields.get(figure.position.y).get(figure.position.x);
@@ -30,8 +31,9 @@ public class SettingFigure {
     }
 
     /**
+     * Sets figure entry on field
      *
-     * @param figure
+     * @param figure - Figure which entered
      */
     private static void setFigureEntry(FigureInField figure) {
         figure.visited = true;

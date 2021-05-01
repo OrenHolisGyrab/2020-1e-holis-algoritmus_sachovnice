@@ -7,9 +7,13 @@ import javafx.scene.layout.GridPane;
 import java.io.FileInputStream;
 
 public class ImageHintPanel {
-
 	public static ImageView image = new ImageView();
 
+	/**
+	 * Creates panel for showing image hint
+	 *
+	 * @return Image panel
+	 */
 	public static GridPane createPanel() {
 		GridPane pane = new GridPane();
 
@@ -21,6 +25,11 @@ public class ImageHintPanel {
 		return pane;
 	}
 
+	/**
+	 * Shows image how figure moves on chessboard
+	 *
+	 * @param figureName - Name of figure
+	 */
 	public static void showImage(String figureName) {
 		try {
 			FileInputStream inputStream = new FileInputStream("Sachovnice/images/hint-pictures/" + figureName + "-plays.png");
