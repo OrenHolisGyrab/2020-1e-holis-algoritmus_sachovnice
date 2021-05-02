@@ -1,7 +1,7 @@
-package Sachovnice.calculations.calculations;
+package sachovnice.calculations.calculations;
 
-import Sachovnice.calculations.figureDataTypes.FigureInField;
-import Sachovnice.calculations.types.Field;
+import sachovnice.calculations.figureDataTypes.FigureInField;
+import sachovnice.calculations.types.Field;
 
 import java.util.ArrayList;
 

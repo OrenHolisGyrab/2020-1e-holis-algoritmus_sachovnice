@@ -1,10 +1,10 @@
-package Sachovnice.GUI;
+package sachovnice.GUI;
 
-import Sachovnice.Sachovnice;
-import Sachovnice.calculations.CalculateFigurePathing;
-import Sachovnice.calculations.figureDataTypes.InsertedFigure;
-import Sachovnice.calculations.types.Positions;
-import Sachovnice.calculations.types.Result;
+import sachovnice.Sachovnice;
+import sachovnice.calculations.CalculateFigurePathing;
+import sachovnice.calculations.figureDataTypes.InsertedFigure;
+import sachovnice.calculations.types.Positions;
+import sachovnice.calculations.types.Result;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.image.ImageView;
@@ -162,7 +162,7 @@ public class ChessBoard {
         ChessBoardFieldRendering.renderResult(chessboardPane, result.figure2Way, "green");
         ChessBoardFieldRendering.renderCrossField(chessboardPane, result.crossField);
 
-        String msgInflection = result.numberOfMoves == 1 ? " kolo." : " kol.";
+        String msgInflection = result.numberOfMoves == 1 ? " kolo." : " kola.";
         InformationPanel.showMessage("Figury se vyhodí na " + result.numberOfMoves + msgInflection);
     }
 }

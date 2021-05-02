@@ -1,4 +1,4 @@
-package Sachovnice.calculations.types;
+package sachovnice.calculations.types;
 
 public class Sizing {
     public int width;

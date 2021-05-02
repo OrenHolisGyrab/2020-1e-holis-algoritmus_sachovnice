@@ -1,6 +1,6 @@
-package Sachovnice.calculations.figureDataTypes;
+package sachovnice.calculations.figureDataTypes;
 
-import Sachovnice.calculations.types.Positions;
+import sachovnice.calculations.types.Positions;
 
 public class InsertedFigure {
     public Positions position;

@@ -1,6 +1,6 @@
-package Sachovnice.calculations.figureDataTypes;
+package sachovnice.calculations.figureDataTypes;
 
-import Sachovnice.calculations.types.Field;
+import sachovnice.calculations.types.Field;
 
 public class FigureWithField extends Figure {
     public Field field;

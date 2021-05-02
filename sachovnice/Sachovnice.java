@@ -1,6 +1,6 @@
-package Sachovnice;
+package sachovnice;
 
-import Sachovnice.GUI.*;
+import sachovnice.GUI.*;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.layout.GridPane;

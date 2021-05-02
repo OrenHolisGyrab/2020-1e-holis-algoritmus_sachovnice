@@ -1,4 +1,4 @@
-package Sachovnice.GUI;
+package sachovnice.GUI;
 
 import javafx.scene.Node;
 import javafx.scene.input.*;

@@ -1,13 +1,13 @@
-package Sachovnice.calculations;
+package sachovnice.calculations;
 
-import Sachovnice.calculations.calculations.SettingFigure;
-import Sachovnice.calculations.calculations.VirtualChessField;
-import Sachovnice.calculations.calculations.AvailableFigureMoves;
-import Sachovnice.calculations.figureDataTypes.Figure;
-import Sachovnice.calculations.figureDataTypes.FigureInField;
-import Sachovnice.calculations.figureDataTypes.FigureWithField;
-import Sachovnice.calculations.figureDataTypes.InsertedFigure;
-import Sachovnice.calculations.types.*;
+import sachovnice.calculations.calculations.SettingFigure;
+import sachovnice.calculations.calculations.VirtualChessField;
+import sachovnice.calculations.calculations.AvailableFigureMoves;
+import sachovnice.calculations.figureDataTypes.Figure;
+import sachovnice.calculations.figureDataTypes.FigureInField;
+import sachovnice.calculations.figureDataTypes.FigureWithField;
+import sachovnice.calculations.figureDataTypes.InsertedFigure;
+import sachovnice.calculations.types.*;
 
 import java.util.ArrayList;
 import java.util.HashMap;

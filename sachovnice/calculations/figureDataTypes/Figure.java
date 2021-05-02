@@ -1,4 +1,4 @@
-package Sachovnice.calculations.figureDataTypes;
+package sachovnice.calculations.figureDataTypes;
 
 public class Figure {
     public int x;

@@ -1,4 +1,4 @@
-package Sachovnice.calculations.figureDataTypes;
+package sachovnice.calculations.figureDataTypes;
 
 public class FigureInField {
     public boolean visited;

@@ -1,6 +1,6 @@
-package Sachovnice.GUI;
+package sachovnice.GUI;
 
-import Sachovnice.calculations.types.Field;
+import sachovnice.calculations.types.Field;
 import javafx.scene.Node;
 import javafx.scene.layout.GridPane;
 

@@ -1,7 +1,7 @@
-package Sachovnice.calculations.calculations;
+package sachovnice.calculations.calculations;
 
-import Sachovnice.calculations.types.Positions;
-import Sachovnice.calculations.types.Sizing;
+import sachovnice.calculations.types.Positions;
+import sachovnice.calculations.types.Sizing;
 
 import java.util.ArrayList;
 import java.util.List;

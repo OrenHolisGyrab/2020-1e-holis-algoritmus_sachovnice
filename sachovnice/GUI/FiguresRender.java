@@ -1,9 +1,9 @@
-package Sachovnice.GUI;
+package sachovnice.GUI;
 
-import Sachovnice.Sachovnice;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
+import sachovnice.Sachovnice;
 
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -41,7 +41,7 @@ public class FiguresRender {
      * @return Figure el
      */
     public static ImageView createFigure(String figureName, int height, int width) throws IOException {
-        FileInputStream inputStream = new FileInputStream("Sachovnice/images/figures/" + figureName + ".png");
+        FileInputStream inputStream = new FileInputStream("sachovnice/images/figures/" + figureName + ".png");
         ImageView imageView = new ImageView(new Image(inputStream));
         imageView.setFitHeight(height);
         imageView.setFitWidth(width);

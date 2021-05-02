@@ -1,4 +1,4 @@
-package Sachovnice.GUI;
+package sachovnice.GUI;
 
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -32,7 +32,7 @@ public class ImageHintPanel {
 	 */
 	public static void showImage(String figureName) {
 		try {
-			FileInputStream inputStream = new FileInputStream("Sachovnice/images/hint-pictures/" + figureName + "-plays.png");
+			FileInputStream inputStream = new FileInputStream("sachovnice/images/hint-pictures/" + figureName + "-plays.png");
 			ImageHintPanel.image.setImage(new Image(inputStream));
 		} catch (Exception ignored) {}
 	}

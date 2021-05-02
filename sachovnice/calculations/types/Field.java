@@ -1,6 +1,6 @@
-package Sachovnice.calculations.types;
+package sachovnice.calculations.types;
 
-import Sachovnice.calculations.figureDataTypes.FigureInField;
+import sachovnice.calculations.figureDataTypes.FigureInField;
 
 public class Field {
     public int x;

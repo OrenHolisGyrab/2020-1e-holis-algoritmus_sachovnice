@@ -1,4 +1,4 @@
-package Sachovnice.calculations.types;
+package sachovnice.calculations.types;
 
 import java.util.ArrayList;
 

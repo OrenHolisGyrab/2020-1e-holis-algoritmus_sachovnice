@@ -1,9 +1,9 @@
-package Sachovnice.calculations.calculations;
+package sachovnice.calculations.calculations;
 
-import Sachovnice.calculations.figureDataTypes.FigureInField;
-import Sachovnice.calculations.figureDataTypes.InsertedFigure;
-import Sachovnice.calculations.types.Field;
-import Sachovnice.calculations.types.VisitedFields;
+import sachovnice.calculations.figureDataTypes.FigureInField;
+import sachovnice.calculations.figureDataTypes.InsertedFigure;
+import sachovnice.calculations.types.Field;
+import sachovnice.calculations.types.VisitedFields;
 
 import java.util.ArrayList;
 

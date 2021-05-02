@@ -1,8 +1,8 @@
-package Sachovnice.calculations;
+package sachovnice.calculations;
 
-import Sachovnice.calculations.figureDataTypes.InsertedFigure;
-import Sachovnice.calculations.types.Positions;
-import Sachovnice.calculations.types.Result;
+import sachovnice.calculations.figureDataTypes.InsertedFigure;
+import sachovnice.calculations.types.Positions;
+import sachovnice.calculations.types.Result;
 
 public class CalculationTests {
     private static int testNumber = 0;
