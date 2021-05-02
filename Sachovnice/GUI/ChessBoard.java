@@ -162,7 +162,7 @@ public class ChessBoard {
         ChessBoardFieldRendering.renderResult(chessboardPane, result.figure2Way, "green");
         ChessBoardFieldRendering.renderCrossField(chessboardPane, result.crossField);
 
-        String msgInflection = result.numberOfMoves == 1 ? " tah." : " tahy.";
+        String msgInflection = result.numberOfMoves == 1 ? " kolo." : " kol.";
         InformationPanel.showMessage("Figury se vyhodí na " + result.numberOfMoves + msgInflection);
     }
 }
